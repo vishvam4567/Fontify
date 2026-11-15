@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FONTIFY - Cursive Font Generator</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&family=Great+Vibes&family=Caveat&family=Satisfy&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg,#eadcff,#ffd9ec);
+  text-align: center;
+  color: #52206f;
+}
+
+header {
+  padding: 25px;
+  background: #8138b7;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 750px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+textarea {
+  width: 100%;
+  height: 110px;
+  padding: 15px;
+  border: 2px solid #b47bd6;
+  border-radius: 15px;
+  font-size: 18px;
+}
+
+h2 {
+  color: #8138b7;
+}
+
+.font {
+  background: white;
+  padding: 18px;
+  margin: 15px 0;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px #0001;
+}
+
+.preview {
+  font-size: 30px;
+  margin: 15px;
+  overflow-wrap: anywhere;
+}
+
+button {
+  background: #8138b7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #a64bd8;
+}
+
+.dancing { font-family: 'Dancing Script', cursive; }
+.pacifico { font-family: 'Pacifico', cursive; }
+.great { font-family: 'Great Vibes', cursive; }
+.caveat { font-family: 'Caveat', cursive; }
+.satisfy { font-family: 'Satisfy', cursive; }
+
+footer {
+  padding: 25px;
+  color: #8138b7;
+}
+</style>
+</head>
+
+<body>
+
+<header>💜 FONTIFY</header>
+
+<div class="container">
+
+<h1>Make Your Text Beautiful!</h1>
+<p>Transform ordinary words into beautiful writing.</p>
+
+<textarea id="input" placeholder="Type something here..."
+oninput="updateFonts()"></textarea>
+
+<h2>✨ Choose Your Font</h2>
+
+<div id="results"></div>
+
+</div>
+
+<footer>
+Made with 💜 by FONTIFY
+</footer>
+
+<script>
+const fonts = [
+ ["Elegant Cursive","great"],
+ ["Dancing Script","dancing"],
+ ["Pacifico","pacifico"],
+ ["Handwriting","caveat"],
+ ["Satisfy","satisfy"]
+];
+
+function updateFonts() {
+ const text = document.getElementById("input").value;
+ const results = document.getElementById("results");
+
+ results.innerHTML = "";
+
+ fonts.forEach(([name,style],i) => {
+   const box = document.createElement("div");
+   box.className = "font";
+
+   const title = document.createElement("h3");
+   title.textContent = name;
+
+   const preview = document.createElement("div");
+   preview.className = "preview " + style;
+   preview.textContent = text || "Your text will appear here";
+
+   const button = document.createElement("button");
+   button.textContent = "📋 Copy Text";
+
+   button.onclick = async () => {
+     try {
+       await navigator.clipboard.writeText(text);
+       button.textContent = "Copied!";
+     } catch {
+       button.textContent = "Copy unavailable";
+     }
+   };
+
+   box.append(title,preview,button);
+   results.appendChild(box);
+ });
+}
+
+updateFonts();
+</script>
+
+</body>
+</html>
